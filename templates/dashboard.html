@@ -1,0 +1,54 @@
+<!----------------------------------------------------------------------------------------------------
+--- Created By:         Team FiPi                                                                  ---
+--- Date:               Spring 2017 - Fall 2018                                                    ---
+--- Purpose:            Dashboard UI for facial recognition app. Has links to access account info  ---
+---                     view the photo depository. Buttons allow user to upload photo or attempt   ---
+---                     to unlock the box.                                                         ---
+----------------------------------------------------------------------------------------------------->
+
+<html>
+  <!-- Gradient background -->
+  <div class = "bg">
+   
+  <!-- Tab name -->
+  <title>FiPi Dashboard</title>
+  
+  <!-- References to style sheets -->
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename= 'CSS.css')}}">
+  <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <ul><txt><h3>
+  <li><center><img src = "LogoPic2.PNG" style = "width: 75px; height: 87px;"></center><br>
+  <div class = "active"><b>Welcome to FiPi</b></div></li>
+  <li><a href="#">Account</a></li>
+  <li><a href="#">Photo Repository</a></li>
+  <li><br><br><b><center><butt><span>Upload</span></butt></center></b></li>
+  <li><br><b><center><butt><span>Unlock</span></butt></center></b></li>
+  <li>
+    <meta name = "google-signin-scope" content = "profile email">
+    <meta name = "google-signin-client_id" content = "523881811204-niaj7nq0lp48m4fj3e8qos9tvd45upgf.apps.googleusercontent.com">
+    <script src = "https://apis.google.com/js/platform.js" async defer></script>
+    <div class = "g-signin2" data-onsuccess = "onSignIn"></div>
+    <script>
+      function onSignIn(googleUser) 
+	  {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script></li></h3></txt></ul>
+  <br>
+  <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+  
+  <txt><p id="rcorners">Name:
+  <br><br>Status:</p></txt></div>
+  </div>
+</html>
