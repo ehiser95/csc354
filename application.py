@@ -1,18 +1,31 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, url_for
 application = Flask(__name__)
 
-# add a rule for the index page.
-#application.add_url_rule('/', 'index', (lambda: header_text +
-#    say_hello() + instructions + footer_text))
+# application.config['SECRET_KEY'] = 'A89Xb9_2#fPpsko'
+# app.config['SERVER_NAME'] = 'localhost:5000'
+# app.config.from_pyfile('config.cfg')
 
-# add a rule when the page is accessed with a name appended to the site
-# URL.
-#application.add_url_rule('/<username>', 'hello', (lambda username:
-#    header_text + say_hello(username) + home_link + footer_text))
 @application.route('/')
 def profile():
-  return render_template("profile.html")
+	return render_template("profile.html")
+  
+  
+@application.route('/dashboard')
+def dashboard():
+	return render_template("dashboard.html")
+	
+@application.route('/unlock')
+def unlock():
+	return render_template("unlock.html")
+	
+@application.route('/upload')
+def upload():
+	return render_template("upload.html")
+	
+@application.route('/account')
+def account():
+	return render_template("account.html")
+		
 # run the app.
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
