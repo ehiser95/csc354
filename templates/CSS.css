@@ -1,0 +1,113 @@
+/*********************************************************************
+*** Created By:         Team FiPi                                  ***
+*** Date:               Spring 2017 - Fall 2018                    ***
+*** Purpose:            Login UI for facial recognition app.       ***
+***                     Uses Google API to sign in. Will redirect  ***
+***                     to dashboard.                              ***
+*********************************************************************/
+
+h1{font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif; text-shadow: 4px 4px 4px #aaa;}  
+txt{ font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;}
+
+a:link{color: black; background-color: transparent; text-decoration: none;}
+a:visited{color: black; background-color: transparent; text-decoration: none;}
+a:hover{color: black; background-color: none; text-decoration: underline;}
+
+/* Gradient background */
+.bg{ 
+    background-image: url("bg.png");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Vertical navigation bar */
+body {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+li b{
+	display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a{
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.active {
+    background-color: gray;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+/* Black button */
+butt{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 0;
+}
+
+butt span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+butt span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+butt:hover span{
+  padding-right: 25px;
+}
+
+butt:hover span:after{
+  opacity: 1;
+  right: 0;
+}
+
+/* Rounded box */
+#rcorners{
+    border-radius: 25px;
+    background: white;
+    padding: 20px;
+	margin: 20px;
+    width: 500px;
+    height: 500px; 
+}

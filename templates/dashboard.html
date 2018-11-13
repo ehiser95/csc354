@@ -1,14 +1,24 @@
 <!----------------------------------------------------------------------------------------------------
 --- Created By:         Team FiPi                                                                  ---
 --- Date:               Spring 2017 - Fall 2018                                                    ---
---- Purpose:            Dashboard UI for facial recognition app. Has links to access account info  ---
----                     view the photo depository. Buttons allow user to upload photo or attempt   ---
----                     to unlock the box.                                                         ---
+--- Purpose:            Dashboard UI for facial recognition app. Displays the name of the user     ---
+---                     pulled from Google API and the status of the lock box.                     ---
+---                     Links include:                                                             ---
+---                       Account: Access account info and view the photo depository.              ---
+---                     Buttons include:                                                           ---
+---                       Upload: Allows user to upload photos into the repository.                ---
+---                       Unlock: Allows user to attempt to unlock the box with a live photo.      ---
 ----------------------------------------------------------------------------------------------------->
 
+<?php
+  session_start();
+  ?>
+  
+<!DOCTYPE html>
 <html>
   <!-- Gradient background -->
-  <div class = "bg">
+  <body background = "{{url_for('static', filename = 'img/bg.png')}}">
+	<br><br>
    
   <!-- Tab name -->
   <title>FiPi Dashboard</title>
@@ -17,38 +27,89 @@
   <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename= 'CSS.css')}}">
   <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+  <!-- Vertical navigation bar -->
   <ul><txt><h3>
-  <li><center><img src = "LogoPic2.PNG" style = "width: 75px; height: 87px;"></center><br>
-  <div class = "active"><b>Welcome to FiPi</b></div></li>
-  <li><a href="#">Account</a></li>
-  <li><a href="#">Photo Repository</a></li>
-  <li><br><br><b><center><butt><span>Upload</span></butt></center></b></li>
-  <li><br><b><center><butt><span>Unlock</span></butt></center></b></li>
-  <li>
-    <meta name = "google-signin-scope" content = "profile email">
-    <meta name = "google-signin-client_id" content = "523881811204-niaj7nq0lp48m4fj3e8qos9tvd45upgf.apps.googleusercontent.com">
-    <script src = "https://apis.google.com/js/platform.js" async defer></script>
-    <div class = "g-signin2" data-onsuccess = "onSignIn"></div>
-    <script>
-      function onSignIn(googleUser) 
-	  {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
-    </script></li></h3></txt></ul>
-  <br>
-  <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+  <li><center><img src = " {{ url_for('static', filename= 'img/LogoPic2.PNG')}}" style = "width: 75px; height: 87px;"></center><br>
+ 
+ <!-- Should I be able to click on this WELCOME TO FIPI? -->
+  <div class = "active"><b>Welcome to FiPi</b></div></li> 
   
-  <txt><p id="rcorners">Name:
-  <br><br>Status:</p></txt></div>
+  <!-- Richies stupid upload button -->
+  <form action="upload.php" method="POST" enctype="multipart/form-data">
+	<input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+     <!-- <input type="file" name="file"> -->
+     <!-- <input type="submit" value="upload"> -->
+  </form>
+  
+  
+  <li><a href="{{url_for('account') }}">Account</a></li><br><br><br>
+  <li><center><butt><span onclick = "window.location.href='{{ url_for( 'upload' ) }}';">Upload</span></butt></center></li><br><b>
+  <li><center><butt><span onclick = "window.location.href='{{ url_for( 'unlock' ) }}';">Unlock</span></butt></center></li>
+  <meta charset="utf-8">
+  <meta content="Display Webcam Stream" name="title">
+  <title>Display Webcam Stream</title>
+  
+  <style>
+  #container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+  }
+#videoElement {
+    width: 500px;
+    height: 375px;
+    background-color: #666;
+  }
+</style>
+  
+<body>
+<div id="container">
+    <video autoplay="true" id="videoElement">
+     
+    </video>
+</div>
+<script>
+  var video = document.querySelector("#videoElement");
+
+  if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({video: true})
+    .then(function(stream){
+      video.srcObject = stream;
+    })
+    .catch(function(err0r){
+      console.log("Unable to display webcam..");
+    })
+  }
+ 
+</script>
+</body>
+  <li><b><center>
+  <a href = "#" onclick = "signOut();">Sign out</a>
+  <script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+      console.log('User signed out.');
+    });
+  }
+  </script></li></h3></txt></ul>
+  
+  <!-- Middle text box -->
+  <br>
+  <div style = "margin-left: 28%;">
+
+  <?php
+    //$_SESSION["User"] = profile.getId();
+  //echo "Welcome";
+    ?>
+
+  <h1><gen>Welcome User</gen></h1></div>
+  <div style = "margin-left:25%; padding:1px 16px; height:1000px;">
+  <txt><h3><p id = "rcorners">Dashboard:<br><br><br>
+  Here will be displayed the name of the user pulled from Google API
+  and the status of the lock box.<br><br><br><strong>Status: Locked</strong></p></h3></txt></div>
   </div>
+  
 </html>

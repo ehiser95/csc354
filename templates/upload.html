@@ -1,0 +1,72 @@
+<!----------------------------------------------------------------------------------------------------
+--- Created By:         Team FiPi                                                                  ---
+--- Date:               Spring 2017 - Fall 2018                                                    ---
+--- Purpose:            Upload UI for facial recognition app. Allows user to upload photos into    ---
+---                     the repository.                                                            ---
+---                     Links include:                                                             ---
+---                       Dashboard: Displays the name of the user pulled from Google API          ---
+---                                  and the status of the lock box.                               ---
+---                       Account: Access account info and view the photo depository.              ---
+---                     Buttons include:                                                           ---
+---                       Unlock: Allows user to attempt to unlock the box with a live photo.      ---
+----------------------------------------------------------------------------------------------------->
+
+<?php
+  session_start();
+  ?>
+	
+<!DOCTYPE html>
+<html>
+  <!-- Gradient background -->
+  <body background = "{{url_for('static', filename = 'img/bg.png')}}">
+   
+  <!-- Tab name -->
+  <title>FiPi Upload</title>
+  
+  <!-- References to style sheets -->
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename= 'CSS.css')}}">
+  <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Vertical navigation bar -->
+  <ul><txt><h3>
+  <li><center><img src = "LogoPic2.PNG" style = "width: 75px; height: 87px;"></center><br>
+  <li><a href="{{url_for('dashboard') }}">Welcome to FiPi</a></li>
+  <li><a href="{{url_for('account') }}">Account</a></li><br><br><br>
+  <li><center><butt><span onclick = "window.location.href='{{ url_for( 'upload' ) }}';">Upload</span></butt></center></li><br><b>
+  <li><center><butt><span onclick = "window.location.href='{{ url_for( 'unlock' ) }}';">Unlock</span></butt></center></li>
+  <li><b><center>
+  
+  
+    <!-- Google button -->
+	<br>
+    <meta name = "google-signin-scope" content = "profile email">
+    <meta name = "google-signin-client_id" content = "523881811204-niaj7nq0lp48m4fj3e8qos9tvd45upgf.apps.googleusercontent.com">
+    <script src = "https://apis.google.com/js/platform.js" async defer></script>
+    <div class = "g-signin2" data-onsuccess = "onSignIn"></div>
+    <script>
+      function onSignIn(googleUser) 
+	  {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </center></b></script></li></h3></txt></ul>
+  
+  <!-- Middle text box -->
+  <br>
+  <div style = "margin-left: 28%;">
+  <h1><gen>Welcome User</gen></h1></div>
+  <div style = "margin-left:25%; padding:1px 16px; height:1000px;">
+  <txt><h3><p id = "rcorners">Upload Photos:<br><br><br>
+  This page will allow users to upload photos into the repository for test data.</p></h3></txt></div>
+  </div>
+  
+</html>
